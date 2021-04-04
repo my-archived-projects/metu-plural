@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Element" representedClassName="Element" syncable="YES">
+        <attribute name="frame" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="externalLinkFrom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Element" syncable="YES"/>
+        <relationship name="externalLinkTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Role" inverseName="linkedElements" inverseEntity="Role" syncable="YES"/>
+        <relationship name="operation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Operation" inverseName="elements" inverseEntity="Operation" syncable="YES"/>
+        <relationship name="outLinks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Element" syncable="YES"/>
+    </entity>
+    <entity name="Operation" representedClassName="Operation" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="elements" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Element" inverseName="operation" inverseEntity="Element" syncable="YES"/>
+        <relationship name="process" maxCount="1" deletionRule="Nullify" destinationEntity="Process" inverseName="operations" inverseEntity="Process" syncable="YES"/>
+        <relationship name="role" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Role" inverseName="operations" inverseEntity="Role" syncable="YES"/>
+    </entity>
+    <entity name="Process" representedClassName="Process" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="operations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Operation" inverseName="process" inverseEntity="Operation" syncable="YES"/>
+    </entity>
+    <entity name="Role" representedClassName="Role" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="linkedElements" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Element" inverseName="externalLinkTo" inverseEntity="Element" syncable="YES"/>
+        <relationship name="operations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Operation" inverseName="role" inverseEntity="Operation" syncable="YES"/>
+    </entity>
+    <fetchRequest name="GetProcesses" entity="Process" predicateString="name CONTAINS &quot;&quot;"/>
+    <elements>
+        <element name="Element" positionX="54" positionY="279" width="128" height="150"/>
+        <element name="Operation" positionX="117" positionY="18" width="128" height="120"/>
+        <element name="Process" positionX="-128" positionY="110" width="128" height="88"/>
+        <element name="Role" positionX="369" positionY="153" width="128" height="105"/>
+    </elements>
+</model>
